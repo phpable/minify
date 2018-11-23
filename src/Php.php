@@ -21,7 +21,9 @@ class Php extends AMinifier {
 					continue;
 				}
 
-				if ($Info[0] == T_VARIABLE){
+				if ($Info[0] == T_VARIABLE && !in_array($Info[1], ['$this', '$_POST', '$_GET', '$_REQUEST',
+					'$_FILES', '$_SERVER', '$_SESSION', '$_COOKIE', '$_ENV'])){
+
 					if (!isset($Vars[$Info[1]])){
 						$Vars[$Info[1]] = '$' . chr(97 + (count($Vars) % 26));
 
