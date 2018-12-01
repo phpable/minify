@@ -21,8 +21,8 @@ class Php extends AMinifier {
 					continue;
 				}
 
-				if ($Info[0] == T_STRING && $i > 0 && is_array($Tokens[$i - 1])
-					&& $Tokens[$i - 1][0] == T_OBJECT_OPERATOR){
+				if ($Info[0] == T_STRING && !$this->findAfter($Tokens, $i + 1, '(')
+					&& $this->findBefore($Tokens, $i - 1, T_OBJECT_OPERATOR)){
 						$Info[1] = $this->replace($Info[1], $Vars);
 				}
 
@@ -51,6 +51,34 @@ class Php extends AMinifier {
 		}
 
 		return $out;
+	}
+
+	/**
+	 * @param array $Tokens
+	 * @param int $index
+	 * @param string $token
+	 * @return bool
+	 */
+	private function findAfter(array $Tokens, int $index, $token): bool {
+		while($Tokens[$index] == T_WHITESPACE){
+			$index++;
+		}
+
+		return $Tokens[$index][0] == $token || $Tokens[$index] == $token;
+	}
+
+	/**
+	 * @param array $Tokens
+	 * @param int $index
+	 * @param string $token
+	 * @return bool
+	 */
+	private function findBefore(array $Tokens, int $index, $token): bool {
+		while($Tokens[$index] == T_WHITESPACE){
+			$index--;
+		}
+
+		return $Tokens[$index][0] == $token || $Tokens[$index] == $token;
 	}
 
 	/**
