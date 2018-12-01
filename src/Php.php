@@ -17,8 +17,6 @@ class Php extends AMinifier {
 		$Vars = [];
 		foreach ($Tokens as $i => $Info){
 			if (is_array($Info)){
-				echo trim($Info[1]) . ' ' . token_name($Info[0]) . "\n";
-
 				if (in_array($Info[0], [T_DOC_COMMENT, T_COMMENT])){
 					continue;
 				}
