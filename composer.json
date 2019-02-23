@@ -1,6 +1,5 @@
 {
 	"name": "able/minify",
-	"version": "1.0",
 	"type": "library",
 	"keywords": ["phpable", "minify", "minifier", "php"],
 	"description": "phpABLE source code minifier",
